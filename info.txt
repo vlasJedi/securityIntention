@@ -1,0 +1,23 @@
+CN - Common Name - Hostname - IS VERY IMPORTANT 
+
+CA creation:
+Create CA private key
+1) openssl genrsa -des3 -out private.pem 2048 // des3 for password encryption
+
+Create CA root crt:
+2) openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.crt
+openssl x509 -text -noout -in rootCA.crt
+
+
+Create private RSA key
+1) openssl genrsa -des3 -out private.pem 2048
+
+Excract from private key the public key
+2) openssl rsa -in <inputPrivateKey> -outform(format) PEM -pubout(getPublic) -out(fileName) public.pem   // -in 
+
+Create sign request
+3) openssl req -key <privateKey>-new -out domain.csr
+view in human readable text: openssl req -text -noout -verify -in <domain.csr>
+
+Sign host crt with CA:
+openssl x509 -req -in mydomain.com.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out mydomain.com.crt -days 712 -sha256
