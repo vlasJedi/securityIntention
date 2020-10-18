@@ -1,8 +1,8 @@
 CN - Common Name - Hostname - IS VERY IMPORTANT 
 
 CA creation:
-Create CA private key
-1) openssl genrsa -des3 -out private.pem 2048 // des3 for password encryption
+Create private key
+1) openssl genpkey -algorithm RSA -outform PEM -out myPrivatePEM.key (-text output key in non secure state) // des3 for password encryption
 
 Create CA root crt:
 2) openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.crt
